@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dCaf.Api</name>
+    </assembly>
+    <members>
+        <member name="P:dCaf.Api.ApiError.Exception">
+            <summary>
+            Exception is usually not exposed except for special scenarios
+            </summary>
+        </member>
+        <member name="P:dCaf.Api.ApiErrorBase.Message">
+            <summary>
+            User friendly error message with an unique id
+            </summary>
+        </member>
+        <member name="T:dCaf.Api.Security.ApiKeyAuthenticatorMiddleware">
+            <summary>
+            This middleware validates the API Key passed in the header X-ApiKey and optionally validates the origin of the app caller as well.
+            If the key was validated successfully then a User Identity will be created and added to HttpContext with Username as ApiKey-{Value of the ApiKey}
+            </summary>
+        </member>
+        <member name="P:dCaf.Api.Swagger.SwaggerOptions.SwaggerDocName">
+            <summary>
+            A URI-friendly name that uniquely identifies the document
+            </summary>
+        </member>
+    </members>
+</doc>

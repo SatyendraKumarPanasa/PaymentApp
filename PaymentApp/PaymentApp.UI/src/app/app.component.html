@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <div class="row">
+        <app-header *ngIf="showHead"></app-header>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <app-side-nav *ngIf="showHead"></app-side-nav>
+        </div>
+        <div class="col-10" style="margin-top:6%;">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<!-- <app-register></app-register> -->

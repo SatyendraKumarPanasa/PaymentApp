@@ -1,0 +1,448 @@
+<form [formGroup]="employeeForm">
+    <div class="con row">
+
+        <h3 class="text-center">Register Employee</h3>
+        <div>&nbsp;</div>
+        <div class="col-3">
+            <label for="adpFileNo" class="form-group">ADP File No <span class="text-red">*</span>
+            </label>
+            <input type="text" name="adpFileNumber" id="adpFileNumber" formControlName="adpFileNumber"
+                class="form-control mb-3">
+        </div>
+
+        <div class="col-3">
+            <label for="firstName" class="form-group">First Name <span class="text-red">*</span>
+            </label>
+            <input type="text" name="firstName" id="firstName" formControlName="firstName" class="form-control">
+        </div>
+
+        <div class="col-3">
+            <label for="lastName" class="form-group">Last Name <span class="text-red">*</span>
+            </label>
+            <input type="text" name="lastName" id="lastName" formControlName="lastName" class="form-control">
+        </div>
+
+        <div class="col-3">
+            <label for="marketingBy" class="form-group">Marketing By <span class="text-red">*</span>
+            </label>
+            <input type="text" name="MarkettingBy" id="MarkettingBy" formControlName="MarkettingBy"
+                class="form-control">
+        </div>
+
+        <div class="col-3">
+            <label for="reffredBy" class="form-group">Reffered By <span class="text-red">*</span>
+            </label>
+            <input type="text" name="referredBy" id="referredBy" formControlName="referredBy" class="form-control mb-3">
+        </div>
+
+        <div class="col-3">
+            <label for="employeeType" class="form-group">Employee Type <span class="text-red">*</span>
+            </label>
+            <select class="form-select" name="EmployeeTypeId" id="EmployeeTypeId" formControlName="EmployeeTypeId">
+                <option [ngValue]=null>--Select--</option>
+                <option *ngFor="let empType of employeeTypesData" value="{{empType.id}}">
+                    {{empType.description}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-3">
+            <label for="visaStatus" class="form-group">Visa Status <span class="text-red">*</span>
+            </label>
+            <select name="VisaStatusId" id="VisaStatusId" formControlName="VisaStatusId" class="form-select">
+                <option [ngValue]=null>--Select--</option>
+                <option *ngFor="let network of visa" value="{{network.id}}">
+                    {{network.description}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-3">
+            <label for="location" class="form-group">Location <span class="text-red">*</span>
+            </label>
+            <select class="form-select" name="locationId" id="locationId" formControlName="locationId">
+                <option [ngValue]=null>--Select--</option>
+                <option *ngFor="let loc of locData" value="{{loc.id}}">
+                    {{loc.name}}
+                </option>
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="DOJ" class="form-group">Date of Joining <span class="text-red">*</span>
+            </label>
+            <input type="date" name="DOJ" id="DOJ" formControlName="DOJ" class="form-control">
+        </div>
+        <div class="col-3">
+            <label for="DOL" class="form-group">Date of Leaving <span class="text-red">*</span>
+            </label>
+            <input type="date" name="DOL" id="DOL" formControlName="DOL" class="form-control">
+        </div>
+
+        <div class="col-3">
+            <label for="payrollstartDate" class="form-group">Payroll Start Date <span class="text-red">*</span>
+            </label>
+            <input type="date" name="payrollstartDate" id="payrollstartDate" formControlName="payrollstartDate"
+                class="form-control">
+        </div>
+
+        <div class="col-3">
+            <label for="h1Wage" class="form-group">H1 Wage Eff Date <span class="text-red">*</span>
+            </label>
+            <input type="date" name="h1Wage" id="h1Wage" formControlName="h1Wage" class="form-control">
+        </div>
+
+
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+
+        <div class="col-3 text-end mt-3">
+            <button *ngIf="!isEmployeeEdit" type="button" class="btn btn-primary mr-4"
+                (click)='submitEmployeesData()'>Save</button>
+            <button *ngIf="isEmployeeEdit" type="button" class="btn btn-primary mr-4"
+                (click)='updateEmployeesData()'>Update</button>
+            <button type="reset" class="btn btn-danger" (click)='clearEmployeeData()'>Cancel</button>
+        </div>
+
+        <div *ngIf="isEmployeeEdit">
+
+            <div class=linkclass>
+                <p (click)="ShowAddprojectModal()">Add Project</p>
+            </div>
+
+            <div class="modal in" [ngStyle]="{'display':_showAddprojectModal}">
+                <div class="modal-dialog modal_exclusion modal_notification_options" id="Outdated-Container"
+                    style="width: 510px">
+                    <div class="modal-content outdated " style="width:650px;">
+                        <div class="modal-header">
+                            <h3 class="text-center">Employee Project Details</h3>
+                            <button type="button" #closebutton class="close" (click)="CloseContractChangeModel()"
+                                data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background:#f5f5f5; width: 645px;">
+                            <table class="table-bordered table">
+                                <tbody>
+                                    <div class="col-sm-3" style="width: 465px;height: 290px;">
+                                        <form [formGroup]="employeeprojectDetailsForm">
+                                            <div class="form-group formgroup_apply" data-toggle="collapse"
+                                                data-target="#locInfo" aria-expanded="false" aria-controls="locInfo"
+                                                style="width: 580px;">
+                                                <div class="row">
+                                                    <p>&nbsp;</p>
+                                                    <div class="col-sm-4">
+                                                        <label for="projectname">Project Name
+                                                        </label>
+                                                        <select class="form-select" name="projectname" id="projectname"
+                                                            formControlName="projectname">
+                                                            <option [ngValue]=null>select</option>
+                                                            <option *ngFor="let empType of projData"
+                                                                value="{{empType.id}}">
+                                                                {{empType.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-sm">
+                                                        <label for="Vendor1">Vendor-1
+                                                        </label>
+                                                        <input type="text" id="Vendor1" name="Vendor1"
+                                                            formControlName="Vendor1" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-sm">
+                                                        <label for="Vendor2">Vendor-2
+                                                        </label>
+                                                        <input type="text" id="Vendor2" name="Vendor2"
+                                                            formControlName="Vendor2" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <br>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <label for="EndClient">End Client </label>
+                                                        <input type="text" id="EndClient" name="EndClient"
+                                                            formControlName="EndClient" class="form-control">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label for="ProjectStartDate">Project Start Date</label>
+                                                        <input type="date" id="ProjectStartDate" name="ProjectStartDate"
+                                                            formControlName="ProjectStartDate" class="form-control">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label for="ProjectEndDate">Project End Date</label>
+                                                        <input type="date" id="ProjectEndDate" name="ProjectEndDate"
+                                                            formControlName="ProjectEndDate" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <br>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ProjectStatus">Project Status
+                                                        </label>
+                                                        <select class="form-select" name="ProjectStatus"
+                                                            id="ProjectStatus" formControlName="ProjectStatus">
+                                                            <option [ngValue]=null>select</option>
+                                                            <option *ngFor="let status of projectStatusData"
+                                                                value="{{status.id}}">
+                                                                {{status.description}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="btn-group pull-left" style="margin-left: 320px;">
+                                                    <button *ngIf="!isEmployeeProjectsedit" type="submit"
+                                                        class="btn btn-primary mx-2"
+                                                        (click)="submitEmployeeProjects()">Save</button>
+                                                    <button *ngIf="isEmployeeProjectsedit" type="submit"
+                                                        class="btn btn-primary mx-2"
+                                                        (click)="updateEmployeeProjects()">Update</button>
+                                                    <button type="reset" class="btn btn-danger mx-2"
+                                                        (click)="clearEmployeeProjectData()">Cancel</button>
+                                                    <button type="close" class="btn btn-danger mx-2"
+                                                        (click)="CloseContractChangeModel()">Close</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md- user-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Vendor Name</th>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Action</th>
+                            <th>Employee Pay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let EmpProjDetails of empProjData | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
+                            <td>{{EmpProjDetails.projectName}}</td>
+                            <td>{{EmpProjDetails.vendor1Id}}</td>
+                            <td>{{EmpProjDetails.endClientId}}</td>
+                            <td>
+                                <button type="edit" class="btn btn-primary mr-2"
+                                    (click)="ShoweditprojectModal(EmpProjDetails)">Edit</button>
+                            </td>
+                            <td>
+                                <button type="edit" class="btn btn-primary mr-2" (click)="ShowAddprojectPayModal()">Pay
+                                    Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="modal in" [ngStyle]="{'display':_showAddprojectPayModal}">
+                    <div class="modal-dialog modal_exclusion modal_notification_options" id="Outdated-Container"
+                        style="width: 510px">
+                        <div class="modal-content outdated " style="width:550px">
+                            <div class="modal-header">
+                                <h3 class="text-center">Employee Project Pay Details</h3>
+                                <button type="button" #closebutton class="close" (click)="CloseAddProjectPayModal()"
+                                    data-dismiss="modal">
+                                    &times;
+                                </button>
+                            </div>
+                            <div class="modal-body" style="background:#f5f5f5; width: 545px;">
+                                <table class="table-bordered table">
+                                    <tbody>
+                                        <div class="col-sm-3" style="width: 510px;height: 290px;">
+                                            <div class="form-group formgroup_apply" data-toggle="collapse"
+                                                data-target="#locInfo" aria-expanded="false" aria-controls="locInfo"
+                                                style="width: 640px;">
+                                                <form [formGroup]="employeeprojectPaymentDetailsForm">
+                                                    <div class="row mt-5">
+                                                        <div class="col-3">
+                                                            <label for="BillRate">Bill Rate
+                                                            </label>
+                                                            <input type="text" id="BillRate" name="BillRate"
+                                                                formControlName="BillRate" class="form-control">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label for="H1Wages">H1 Wages
+                                                            </label>
+                                                            <input type="text" id="H1Wages" name="H1Wages"
+                                                                formControlName="H1Wages" class="form-control">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label for="SalaryOffered">Salary Offered </label>
+                                                            <input type="text" id="SalaryOffered" name="SalaryOffered"
+                                                                formControlName="SalaryOffered" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col-3">
+                                                            <label for="PayPercentage">Pay Percentage </label>
+                                                            <input type="text" id="PayPercentage" name="PayPercentage"
+                                                                formControlName="PayPercentage" class="form-control">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label for="HourlyRate">Hourly Rate </label>
+                                                            <input type="text" id="HourlyRate" name="HourlyRate"
+                                                                formControlName="HourlyRate" class="form-control">
+                                                        </div>
+
+                                                        <div class="col-3">
+                                                            <label for="PTO">PTO </label>
+                                                            <select class="form-select" name="PTO" id="PTO"
+                                                                formControlName="PTO">
+                                                                <option [ngValue]=null>--Select--</option>
+                                                                <option value=1>Yes</option>
+                                                                <option value=2>No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col-3">
+                                                            <label for="InsurenceByUs">Insurence By Us </label>
+                                                            <select class="form-select" name="InsurenceByUs"
+                                                                id="InsurenceByUs" formControlName="InsurenceByUs">
+                                                                <option [ngValue]=null>--Select--</option>
+                                                                <option value=1>Yes</option>
+                                                                <option value=2>No</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label for="SalaryTypeId">Salary Type
+                                                            </label>
+                                                            <select class="form-select" name="SalaryTypeId"
+                                                                id="SalaryTypeId" formControlName="SalaryTypeId">
+                                                                <option [ngValue]=null>--Select--</option>
+                                                                <option *ngFor="let empType of getSalaryType"
+                                                                    value="{{empType.id}}">
+                                                                    {{empType.description}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div>
+                                                <div class="btn-group pull-left" style="margin-left: 240px;">
+                                                    <button type="submit" class="btn btn-primary mx-2"
+                                                        (click)='employeePayDetailsSubmit()'>Save</button>
+                                                    <button type="reset" class="btn btn-danger mx-2"
+                                                        (click)='clearProjectPayData()'>Cancel</button>
+                                                    <button type="reset" class="btn btn-danger mx-2"
+                                                        (click)='CloseAddProjectPayModal()'>Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class=linkclass>
+                    <p (click)="ShowEmployeeNotesModal()">Add Notes</p>
+                </div>
+                <div class="modal in" [ngStyle]="{'display':_showAddEmployeeNotesModal}">
+                    <div class="modal-dialog modal_exclusion modal_notification_options" id="Outdated-Container"
+                        style="width: 310px">
+                        <div class="modal-content outdated " style="width:650px;">
+                            <div class="modal-header">
+                                <h3 class="text-center">Employee Notes</h3>
+                                <button type="button" #closebutton class="close" (click)="CloseEmployeeNotesModal()"
+                                    data-dismiss="modal">
+                                    &times;
+                                </button>
+                            </div>
+                            <div class="modal-body" style="background:#f5f5f5; width: 648px;">
+                                <table class="table-bordered table">
+                                    <tbody>
+                                        <div class="col-sm-3" style="width: 550px;height: 290px;">
+                                            <div class="form-group formgroup_apply" data-toggle="collapse"
+                                                data-target="#locInfo" aria-expanded="false" aria-controls="locInfo"
+                                                style="width: 500px;">
+                                                <form [formGroup]="employeeNotesForm">
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <label for="firtsName">Add Employee Notes</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <textarea type="text" name="Notes" class="form-control"
+                                                                formControlName="Notes"
+                                                                style="width: 500px;height: 100px;"></textarea>
+                                                        </div>
+                                                        <div class="col-3"></div>
+                                                        <div class="col-3"></div>
+                                                        <div class="col-3"></div>
+                                                        <div>
+                                                            <div class="btn-group pull-left mt-3"
+                                                                style="padding-left:240px">
+                                                                <div class="col-3"></div>
+                                                                <button *ngIf="!isEmployeeNotesedit" type="button"
+                                                                    class="btn btn-primary mx-2"
+                                                                    (click)='submitEmployeeNotes()'>Save</button>
+                                                                <button *ngIf="isEmployeeNotesedit" type="button"
+                                                                    class="btn btn-primary mx-2"
+                                                                    (click)='updateEmployeeNotes()'>Update</button>
+                                                                <button type="reset" class="btn btn-danger mx-2"
+                                                                    (click)='clearEmployeeNotesData()'>Cancel</button>
+                                                                <button type="reset" class="btn btn-danger mx-2"
+                                                                    (click)='CloseEmployeeNotesModal()'>Close</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Employee Notes</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let note of empNotesData | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
+                            <td>{{note.notes}}</td>
+                            <td>
+                                <button type="edit" class="btn btn-primary mr-2"
+                                    (click)="ShoweditEmployeeNotesModal(note)">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end">
+                    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

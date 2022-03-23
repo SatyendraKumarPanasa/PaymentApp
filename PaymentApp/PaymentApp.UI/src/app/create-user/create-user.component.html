@@ -1,0 +1,34 @@
+<form [formGroup]="userForm">
+<div class="con">
+    <h3 class="text-center">Create User</h3>
+    <table class="center">
+        <tr>
+            <td><label for="firstName" class="mx-3">First Name <span class="text-danger">*</span></label></td>
+            <td><input type="text" id="firstName" name="firstName" formControlName="firstName" class="form-control">
+            </td>
+            <td><label for="lastName" class="mx-3">Last Name</label></td>
+            <td><input type="text" id="lastName" name="lastName" formControlName="lastName" class="form-control"></td>
+            <td><label for="roleid" class="mx-3">Role <span class="text-red">*</span></label></td>
+            <td>
+                <select class="form-select" name="roleid" id="roleid" formControlName="roleid">
+                    <option [ngValue]=null>--Select--</option>
+                    <option *ngFor="let role of roles" value="{{role.id}}">
+                        {{role.description}}
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="email" class="mx-3">Email <span class="text-red">*</span></label></td>
+            <td><input type="email" id="email" name="email" formControlName="email" class="form-control"></td>
+            <td><label for="password" class="mx-3">Password<span class="text-red">*</span></label></td>
+            <td><input type="password" id="password" name="password" formControlName="password" class="form-control">
+            </td>
+        </tr>
+    </table>
+    <div class="butt text-end">
+        <button  type="button" class="btn btn-primary mx-2" (click)='saveUserData()'>Create</button>
+        <button type="reset" class="btn btn-danger" (click)='clearData()'>Cancel</button>
+    </div>
+</div>
+</form>

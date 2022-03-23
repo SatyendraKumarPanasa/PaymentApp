@@ -1,0 +1,80 @@
+<div class="con row">
+  <form [formGroup]="employeeSearchForm">
+    <h3 class="text-center mb-4">Employee Search</h3>
+    <table class="center">
+      <tr>
+        <td><label for="firstname" class="mx-2">First Name</label></td>
+        <td><input type="text" id="firstname" name="firstname" formControlName="firstname" class="form-control"></td>
+        <td><label for="lastname" class="mx-2">Last Name</label></td>
+        <td><input type="text" id="lastname" name="lastname" formControlName="lastname" class="form-control"></td>
+        <td><label for="AdpFileNumber" class="mx-2">ADP File No</label></td>
+        <td><input type="text" id="AdpFileNumber" name="AdpFileNumber" formControlName="AdpFileNumber"
+            class="form-control">
+        </td>
+      </tr>
+      <tr class="text">
+        <td><label for="location" class="mx-2 mb-2">Location</label></td>
+        <td><select class="form-control mb-2" name="locationId" id="locationId" formControlName="locationId">
+            <option [ngValue]=null>--Select--</option>
+            <option *ngFor="let loc of locData" value="{{loc.id}}">
+              {{loc.name}}
+            </option>
+          </select></td>
+        <td><label for="visaStatus" class="mx-2 mb-2">VisaStatus</label></td>
+        <td><select name="VisaStatusId" id="VisaStatusId" formControlName="VisaStatusId" class="form-select mb-2">
+            <option [ngValue]=null>--Select--</option>
+            <option *ngFor="let network of visa" value="{{network.id}}">
+              {{network.description}}
+            </option>
+          </select></td>
+        <td><label for="employeeType" class="mx-2 mb-2">EmployeeType </label></td>
+        <td><select class="form-select mb-2" name="EmployeeTypeId" id="EmployeeTypeId" formControlName="EmployeeTypeId">
+            <option [ngValue]=null>--Select--</option>
+            <option *ngFor="let empType of employeeTypesData" value="{{empType.id}}">
+              {{empType.description}}
+            </option>
+          </select></td>
+      </tr>
+    </table>
+
+    <div class="row mt-3">
+      <div class="col-3"></div>
+      <div class="col-3"></div>
+      <div class="col-3"></div>
+      <div class="col-3 text-end">
+        <button type="submit" class="btn btn-primary mr-4" (click)='Search()'>Search</button>
+        <button type="reset" class="btn btn-danger" (click)='clearData()'>Cancel</button>
+      </div>
+    </div>
+    <div class="col-md- user-container">
+      <h2 class="mb-3 mt-2"> Employee Details</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Adp File Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let user of employees | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
+            <td>{{user.id}}</td>
+            <td>{{user.adpFileNumber}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>
+              <button type="edit" class="btn btn-primary mr-2" (click)='NavigateToCreateEmployee(user.id)'>Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+      </div>
+    </div>
+  </form>
+</div>
